@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { handleDelete } from '../redux/actions';
+import { deleteContactFromServer } from '../redux/operations';
+
+// import { handleDelete } from '../redux/actions';
 
 const FiltredList = props => {
   function filteredList() {
@@ -10,7 +12,7 @@ const FiltredList = props => {
   }
 
   return (
-    <>
+    <section className="contact_list">
       {filteredList().map(contact => {
         return (
           <li key={contact.id}>
@@ -19,7 +21,7 @@ const FiltredList = props => {
           </li>
         );
       })}
-    </>
+    </section>
   );
 };
 
@@ -31,7 +33,7 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    onDelete: id => dispatch(handleDelete(id)),
+    onDelete: id => dispatch(deleteContactFromServer(id)),
   };
 };
 FiltredList.propTypes = {

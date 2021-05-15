@@ -1,9 +1,11 @@
 import {
   handleChange,
   handleFilterChange,
-  handleSubmit,
+  // handleSubmit,
 } from '../redux/actions';
 import { connect } from 'react-redux';
+import { postContactToServer } from '../redux/operations';
+
 import PropTypes from 'prop-types';
 
 function ContactForm({ filter, onChange, onFilterChange, onSubmit }) {
@@ -34,7 +36,7 @@ function ContactForm({ filter, onChange, onFilterChange, onSubmit }) {
           </button>
         </form>
       </section>
-      <section>
+      <section className="filter_contacts">
         <h2>Contacts</h2>
         <label htmlFor="addFilter">Filter contacts by name</label>
 
@@ -57,7 +59,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onChange: () => dispatch(handleChange()),
     onFilterChange: e => dispatch(handleFilterChange(e)),
-    onSubmit: e => dispatch(handleSubmit(e)),
+    onSubmit: e => dispatch(postContactToServer(e)),
   };
 };
 console.log(window);

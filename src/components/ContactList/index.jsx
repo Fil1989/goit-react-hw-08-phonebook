@@ -1,10 +1,11 @@
-import { handleDelete } from '../../redux/actions';
+// import { handleDelete } from '../../redux/actions';
+import { deleteContactFromServer } from '../../redux/operations';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function ContactList({ filter, contacts, onDelete }) {
   return (
-    <>
+    <section className="contact_list">
       {filter.length === 0 &&
         contacts.map(contact => {
           return (
@@ -14,7 +15,7 @@ function ContactList({ filter, contacts, onDelete }) {
             </li>
           );
         })}
-    </>
+    </section>
   );
 }
 
@@ -26,7 +27,7 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    onDelete: id => dispatch(handleDelete(id)),
+    onDelete: id => dispatch(deleteContactFromServer(id)),
   };
 };
 ContactList.propTypes = {

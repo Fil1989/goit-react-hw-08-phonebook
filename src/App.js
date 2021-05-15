@@ -1,42 +1,40 @@
-import { useEffect } from 'react';
-// import ContactList from './components/ContactList';
-import FiltredList from './components/FiltredList';
-import ContactForm from './components/ContactForm';
-import { connect } from 'react-redux';
-import { takeContactsFromServer } from './redux/operations';
-import React, { Suspense } from 'react';
+import { Switch, Route, NavLink } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import Registration from './components/Registration';
+import LogIn from './components/LogIn';
+import Contacts from './components/Contacts';
+// import Routes from './router';
 
-const ContactList = React.lazy(() => import('./components/ContactList'));
-
-function App({ filter, onTakeContactsFromServer }) {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => onTakeContactsFromServer(), []);
-
+function App() {
   return (
     <div className="App">
-      <h2>Phonebook</h2>
-      <ContactForm />
+      <header className="menu">
+        <div>
+          <NavLink to="/" className="menu-main">
+            Головна
+          </NavLink>
+          <NavLink to="/contacts" className="menu-main">
+            Контакти
+          </NavLink>
+        </div>
+        <div>
+          <NavLink to="/register" className="menu-profile">
+            Реєстрація
+          </NavLink>
+          <NavLink to="/login" className="menu-profile">
+            Логін
+          </NavLink>
+        </div>
+      </header>
 
-      <ul>
-        {filter.length === 0 && (
-          <Suspense fallback="Wait">
-            <ContactList />
-          </Suspense>
-        )}
-        {filter.length !== 0 && <FiltredList />}
-      </ul>
+      <Switch>
+        <Route path="/" exact component={HomePage} />
+        <Route path="/register" component={Registration} />
+        <Route path="/login" component={LogIn} />
+        <Route path="/contacts" component={Contacts} />
+      </Switch>
     </div>
   );
 }
-const mapStateToProps = state => {
-  return {
-    filter: state.filter,
-    contacts: state.contacts,
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    onTakeContactsFromServer: () => dispatch(takeContactsFromServer()),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default App;
