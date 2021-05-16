@@ -4,11 +4,9 @@ const initialState = {
   filter: '',
   contacts: [],
   isLoading: false,
-  auth: {
-    user: '',
-    error: false,
-    token: '',
-  },
+  user: {},
+  error: false,
+  token: '',
 };
 export const filter = createReducer(initialState.filter, {
   'form/handleFilterChange': (_, action) => action.payload.value,
@@ -59,4 +57,14 @@ export const isLoading = createReducer(initialState.isLoading, {
 
   'Server/DeleteSucess': (state, _) => !state,
   'Server/DeleteError': (state, _) => !state,
+});
+
+export const user = createReducer(initialState.user, {
+  'Server/PostUserSucess': (state, action) => action.payload.user,
+  'Server/PostUserError': (_, action) => action.payload,
+
+  'Server/LoginUserSucess': (state, action) => action.payload.user,
+});
+export const token = createReducer(initialState.token, {
+  'Server/LoginUserSucess': (state, action) => action.payload.token,
 });

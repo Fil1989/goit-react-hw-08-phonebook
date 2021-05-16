@@ -19,16 +19,19 @@ export const handleSubmit = createAction('form/handleSubmit', e => {
     payload: { id, name, number },
   };
 });
+export const contactsRequest = createAction('Server/Request');
+
 export const getContactsSucess = createAction('Server/GetSucess');
 export const getContactsError = createAction('Server/GetError');
-export const contactsRequest = createAction('Server/Request');
+
 export const postContactSucess = createAction('Server/PostSucess');
 export const postContactError = createAction('Server/PostError');
-// export const postContactRequest = createAction('Server/PostRequest', () => {
-//   return {
-//     payload: { isLoading: true },
-//   };
-// });
 
 export const deleteContactSucess = createAction('Server/DeleteSucess');
 export const deleteContactError = createAction('Server/DeleteError');
+
+export const postAUserSucess = createAction('Server/PostUserSucess');
+export const postAUserError = createAction('Server/PostUserError');
+
+export const loginUserSucess = createAction('Server/LoginUserSucess');
+export const loginUserError = createAction('Server/LoginUserError');

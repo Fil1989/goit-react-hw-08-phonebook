@@ -1,11 +1,14 @@
-const LogIn = () => {
+import { connect } from 'react-redux';
+import { loginOperation } from '../redux/operations';
+
+const LogIn = ({ login }) => {
   return (
     <section className="login">
-      <form>
+      <form onSubmit={login}>
         <label htmlFor="addEmail">Email</label>
         <input
-          type="tel"
-          name="number"
+          type="email"
+          name="email"
           //   pattern="(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})"
           placeholder="Enter an email"
           //   onChange={onChange}
@@ -28,4 +31,12 @@ const LogIn = () => {
     </section>
   );
 };
-export default LogIn;
+// const mapStateToProps = (state) => ({
+
+// })
+
+const mapDispatchToProps = {
+  login: e => loginOperation(e),
+};
+
+export default connect(null, mapDispatchToProps)(LogIn);

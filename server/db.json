@@ -1,9 +1,17 @@
 {
   "contacts": [
     {
-      "id": "retI9jhXm",
+      "id": "JfqUxUmRv",
       "name": "Filip",
       "number": "+380958454153"
+    }
+  ],
+  "users": [
+    {
+      "id": "0BWZDBaKy",
+      "name": "Filip",
+      "email": "peacefilip1989@gmail.com",
+      "password": "lll"
     }
   ]
 }

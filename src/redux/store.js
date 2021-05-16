@@ -4,12 +4,14 @@ import {
   combineReducers,
 } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-import { filter, contacts, isLoading } from './reducers';
+import { filter, contacts, isLoading, user, token } from './reducers';
 const middleware = [logger, ...getDefaultMiddleware()];
 const rootReducer = combineReducers({
   filter,
   contacts,
   isLoading,
+  user,
+  token,
 });
 const store = configureStore({
   reducer: rootReducer,

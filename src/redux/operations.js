@@ -7,9 +7,12 @@ import {
   postContactError,
   deleteContactSucess,
   deleteContactError,
-  // postContactRequest,
+  postAUserSucess,
+  postAUserError,
+  loginUserSucess,
+  loginUserError,
 } from './actions';
-
+// axios.defaults
 export const takeContactsFromServer = () => async dispatch => {
   dispatch(contactsRequest());
   try {
@@ -54,5 +57,50 @@ export const deleteContactFromServer = id => async dispatch => {
   } catch (error) {
     dispatch(deleteContactError(error));
     // );
+  }
+};
+export const registerAUser = e => async dispatch => {
+  e.preventDefault();
+
+  const name = e.currentTarget[0].value;
+  const email = e.currentTarget[1].value;
+  const password = e.currentTarget[2].value;
+  const shortid = require('shortid');
+  const id = shortid.generate();
+  // dispatch(contactsRequest());
+  try {
+    const { data } = await axios.post(
+      `https://connections-api.herokuapp.com/users/signup`,
+      {
+        // id,
+        name,
+        email,
+        password,
+      },
+    );
+    // .then(response =>
+    dispatch(postAUserSucess(data));
+    // )
+  } catch (error) {
+    dispatch(postAUserError(error));
+    // );
+  }
+};
+export const loginOperation = e => async dispatch => {
+  e.preventDefault();
+  const email = e.currentTarget[0].value;
+  const password = e.currentTarget[1].value;
+
+  try {
+    const { data } = await axios.post(
+      `https://connections-api.herokuapp.com/users/login`,
+      {
+        email,
+        password,
+      },
+    );
+    dispatch(loginUserSucess(data));
+  } catch (error) {
+    dispatch(loginUserError(error));
   }
 };

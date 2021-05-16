@@ -1,7 +1,10 @@
-const Registration = () => {
+import { registerAUser } from '../redux/operations';
+import { connect } from 'react-redux';
+
+const Registration = ({ submitOfRegistration }) => {
   return (
     <section className="registration">
-      <form /*onSubmit={}*/ className="add_contact__form">
+      <form onSubmit={submitOfRegistration} className="add_contact__form">
         <label htmlFor="addContact">Name</label>
         <input
           type="text"
@@ -13,11 +16,11 @@ const Registration = () => {
         />
         <label htmlFor="addEmail">Email</label>
         <input
-          type="tel"
-          name="number"
+          type="email"
+          name="email"
           //   pattern="(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})"
           placeholder="Enter an email"
-          //   onChange={onChange}
+          // onChange={onChange}
           id="addEmail"
         />
         <label htmlFor="addPassword">Password</label>
@@ -27,7 +30,7 @@ const Registration = () => {
           name="password"
           //   pattern="(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})"
           placeholder="Enter a password"
-          //   onChange={onChange}
+          // onChange={onChange}
           id="addPassword"
         />
         <button type="submit" className="btn">
@@ -37,4 +40,10 @@ const Registration = () => {
     </section>
   );
 };
-export default Registration;
+// const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({
+  submitOfRegistration: e => dispatch(registerAUser(e)),
+});
+
+export default connect(null, mapDispatchToProps)(Registration);
