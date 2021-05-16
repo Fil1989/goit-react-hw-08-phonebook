@@ -21,13 +21,14 @@ export const handleSubmit = createAction('form/handleSubmit', e => {
 });
 export const getContactsSucess = createAction('Server/GetSucess');
 export const getContactsError = createAction('Server/GetError');
-export const getContactsRequest = createAction('Server/Request', () => {
-  return {
-    payload: { spinner: 'Loading...', isLoading: false },
-  };
-});
+export const contactsRequest = createAction('Server/Request');
 export const postContactSucess = createAction('Server/PostSucess');
 export const postContactError = createAction('Server/PostError');
+// export const postContactRequest = createAction('Server/PostRequest', () => {
+//   return {
+//     payload: { isLoading: true },
+//   };
+// });
 
 export const deleteContactSucess = createAction('Server/DeleteSucess');
 export const deleteContactError = createAction('Server/DeleteError');

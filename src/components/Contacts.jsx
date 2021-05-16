@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import React, { Suspense } from 'react';
+// import React, { Suspense } from 'react';
 import FiltredList from './FiltredList';
+import ContactList from './ContactList';
 import ContactForm from './ContactForm';
 import { connect } from 'react-redux';
 import { takeContactsFromServer } from '../redux/operations';
-const ContactList = React.lazy(() => import('./ContactList'));
+// const ContactList = React.lazy(() => import('./ContactList'));
 
 const Contacts = ({ filter, onTakeContactsFromServer }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -15,9 +16,9 @@ const Contacts = ({ filter, onTakeContactsFromServer }) => {
 
       <ul>
         {filter.length === 0 && (
-          <Suspense fallback="Wait">
-            <ContactList />
-          </Suspense>
+          //   <Suspense fallback="Wait">
+          <ContactList />
+          //   </Suspense>
         )}
         {filter.length !== 0 && <FiltredList />}
       </ul>

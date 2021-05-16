@@ -3,6 +3,7 @@ import { createReducer } from '@reduxjs/toolkit';
 const initialState = {
   filter: '',
   contacts: [],
+  isLoading: false,
   auth: {
     user: '',
     error: false,
@@ -39,10 +40,23 @@ export const contacts = createReducer(initialState.contacts, {
   'Server/DeleteSucess': (state, action) => {
     return state.filter(el => el.id !== action.payload);
   },
-  'Server/DeleteError': (state, action) => {
+  'Server/DeleteError': (_, action) => {
     return action.payload;
   },
-  // 'Server/Request': (_, action) => action.payload,
   'Server/GetSucess': (_, action) => action.payload,
   'Server/GetError': (_, action) => action.payload,
+});
+
+export const isLoading = createReducer(initialState.isLoading, {
+  'Server/Request': (state, _) => !state,
+
+  'Server/GetSucess': (state, _) => !state,
+  'Server/GetError': (state, _) => !state,
+
+  // 'Server/PostRequest': (_, action) => !state,
+  'Server/PostSucess': (state, _) => !state,
+  'Server/PostError': (state, _) => !state,
+
+  'Server/DeleteSucess': (state, _) => !state,
+  'Server/DeleteError': (state, _) => !state,
 });

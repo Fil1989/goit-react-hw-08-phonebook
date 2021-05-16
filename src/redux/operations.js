@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   getContactsSucess,
   getContactsError,
-  getContactsRequest,
+  contactsRequest,
   postContactSucess,
   postContactError,
   deleteContactSucess,
@@ -11,7 +11,7 @@ import {
 } from './actions';
 
 export const takeContactsFromServer = () => async dispatch => {
-  dispatch(getContactsRequest());
+  dispatch(contactsRequest());
   try {
     const { data } = await axios.get('http://localhost:4040/contacts');
     // .then(response =>
@@ -29,7 +29,7 @@ export const postContactToServer = e => async dispatch => {
   const number = e.currentTarget[1].value;
   const shortid = require('shortid');
   const id = shortid.generate();
-  // dispatch(postContactRequest());
+  dispatch(contactsRequest());
   try {
     const { data } = await axios.post('http://localhost:4040/contacts', {
       id,
@@ -45,7 +45,7 @@ export const postContactToServer = e => async dispatch => {
   }
 };
 export const deleteContactFromServer = id => async dispatch => {
-  // dispatch(deleteContactsRequest());
+  dispatch(contactsRequest());
   try {
     await axios.delete(`http://localhost:4040/contacts/${id}`);
     // .then(response =>

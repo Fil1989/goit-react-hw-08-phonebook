@@ -21,6 +21,7 @@ const FiltredList = props => {
           </li>
         );
       })}
+      {props.isLoading && <p>Loading...</p>}
     </section>
   );
 };
@@ -29,6 +30,7 @@ const mapStateToProps = state => {
   return {
     contacts: state.contacts,
     filter: state.filter,
+    isLoading: state.isLoading,
   };
 };
 const mapDispatchToProps = dispatch => {

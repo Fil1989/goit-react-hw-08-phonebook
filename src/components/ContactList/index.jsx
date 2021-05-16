@@ -3,7 +3,7 @@ import { deleteContactFromServer } from '../../redux/operations';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-function ContactList({ filter, contacts, onDelete }) {
+function ContactList({ filter, contacts, isLoading, onDelete }) {
   return (
     <section className="contact_list">
       {filter.length === 0 &&
@@ -15,6 +15,7 @@ function ContactList({ filter, contacts, onDelete }) {
             </li>
           );
         })}
+      {isLoading && <p>Loading...</p>}
     </section>
   );
 }
@@ -23,6 +24,7 @@ const mapStateToProps = state => {
   return {
     filter: state.filter,
     contacts: state.contacts,
+    isLoading: state.isLoading,
   };
 };
 const mapDispatchToProps = dispatch => {
