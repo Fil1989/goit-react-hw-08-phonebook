@@ -21,14 +21,12 @@ function App({ isAutenticated }) {
         </div>
 
         {isAutenticated ? (
-          <>
+          <div className="menu-profile">
             <span>Welcome,</span>
             <button>
-              <NavLink to="/register" className="menu-profile">
-                Вийти
-              </NavLink>
+              <NavLink to="/register">Вийти</NavLink>
             </button>
-          </>
+          </div>
         ) : (
           <div>
             <NavLink to="/register" className="menu-profile">
