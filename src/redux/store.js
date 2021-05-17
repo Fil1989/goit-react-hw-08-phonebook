@@ -4,7 +4,7 @@ import {
   combineReducers,
 } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-import { filter, contacts, isLoading, user, token } from './reducers';
+import { filter, contacts, isLoading, user, token, error } from './reducers';
 const middleware = [logger, ...getDefaultMiddleware()];
 const rootReducer = combineReducers({
   filter,
@@ -12,6 +12,7 @@ const rootReducer = combineReducers({
   isLoading,
   user,
   token,
+  error,
 });
 const store = configureStore({
   reducer: rootReducer,

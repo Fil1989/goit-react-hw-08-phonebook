@@ -7,8 +7,8 @@ import {
   postContactError,
   deleteContactSucess,
   deleteContactError,
-  postAUserSucess,
-  postAUserError,
+  registrationSucess,
+  registrationError,
   loginUserSucess,
   loginUserError,
 } from './actions';
@@ -65,8 +65,8 @@ export const registerAUser = e => async dispatch => {
   const name = e.currentTarget[0].value;
   const email = e.currentTarget[1].value;
   const password = e.currentTarget[2].value;
-  const shortid = require('shortid');
-  const id = shortid.generate();
+  // const shortid = require('shortid');
+  // const id = shortid.generate();
   // dispatch(contactsRequest());
   try {
     const { data } = await axios.post(
@@ -79,10 +79,10 @@ export const registerAUser = e => async dispatch => {
       },
     );
     // .then(response =>
-    dispatch(postAUserSucess(data));
+    dispatch(registrationSucess(data));
     // )
   } catch (error) {
-    dispatch(postAUserError(error));
+    dispatch(registrationError(error));
     // );
   }
 };

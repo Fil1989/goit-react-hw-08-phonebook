@@ -30,8 +30,8 @@ export const postContactError = createAction('Server/PostError');
 export const deleteContactSucess = createAction('Server/DeleteSucess');
 export const deleteContactError = createAction('Server/DeleteError');
 
-export const postAUserSucess = createAction('Server/PostUserSucess');
-export const postAUserError = createAction('Server/PostUserError');
+export const registrationSucess = createAction('Server/RegistrationSucess');
+export const registrationError = createAction('Server/RegistrationError');
 
 export const loginUserSucess = createAction('Server/LoginUserSucess');
 export const loginUserError = createAction('Server/LoginUserError');

@@ -5,7 +5,7 @@ const initialState = {
   contacts: [],
   isLoading: false,
   user: {},
-  error: false,
+  error: '',
   token: '',
 };
 export const filter = createReducer(initialState.filter, {
@@ -60,11 +60,18 @@ export const isLoading = createReducer(initialState.isLoading, {
 });
 
 export const user = createReducer(initialState.user, {
-  'Server/PostUserSucess': (state, action) => action.payload.user,
-  'Server/PostUserError': (_, action) => action.payload,
+  'Server/RegistrationSucess': (state, action) => action.payload.user,
+  'Server/RegistrationError': (_, action) => action.payload,
 
   'Server/LoginUserSucess': (state, action) => action.payload.user,
 });
-export const token = createReducer(initialState.token, {
+export const token = createReducer(null, {
+  // 'Server/RegistrationSucess': (state, action) => action.payload.token,
+
   'Server/LoginUserSucess': (state, action) => action.payload.token,
+});
+export const error = createReducer(initialState.error, {
+  'Server/RegistrationSucess': (state, action) => action.payload,
+
+  'Server/LoginUserSucess': (state, action) => action.payload,
 });
