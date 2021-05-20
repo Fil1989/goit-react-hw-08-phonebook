@@ -5,9 +5,11 @@ import LogIn from './components/LogIn';
 import Contacts from './components/Contacts';
 import { connect } from 'react-redux';
 import authSelectors from './redux/auth-selectors';
+import image from './images/avatar.png';
+import { logout } from './redux/operations';
 // import Routes from './router';
 
-function App({ isAutenticated }) {
+function App({ isAutenticated, myLogin, avatar, onLogout }) {
   return (
     <div className="App">
       <header className="menu">
@@ -22,9 +24,11 @@ function App({ isAutenticated }) {
 
         {isAutenticated ? (
           <div className="menu-profile">
-            <span>Welcome,</span>
-            <button>
-              <NavLink to="/register">Вийти</NavLink>
+            <span>
+              <img src={avatar} alt="Avatar" width="20" /> Welcome,{myLogin}
+            </span>
+            <button onClick={onLogout}>
+              <NavLink to="/register">Logout</NavLink>
             </button>
           </div>
         ) : (
@@ -50,8 +54,13 @@ function App({ isAutenticated }) {
 }
 const mapStateToProps = state => ({
   isAutenticated: authSelectors.getIsAunticated(state),
+  // onLogout: () => authSelectors.logout(state),
+  myLogin: authSelectors.getUserLogin(state),
+  avatar: image,
 });
 
-// const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  onLogout: () => logout(),
+};
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

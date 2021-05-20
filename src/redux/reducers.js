@@ -6,7 +6,7 @@ const initialState = {
   isLoading: false,
   user: {},
   error: '',
-  token: '',
+  token: null,
 };
 export const filter = createReducer(initialState.filter, {
   'form/handleFilterChange': (_, action) => action.payload.value,
@@ -64,14 +64,17 @@ export const user = createReducer(initialState.user, {
   'Server/RegistrationError': (_, action) => action.payload,
 
   'Server/LoginUserSucess': (state, action) => action.payload.user,
+  'Server/LogoutSucess': (state, action) => ({}),
 });
-export const token = createReducer(null, {
+export const token = createReducer(initialState.token, {
   // 'Server/RegistrationSucess': (state, action) => action.payload.token,
 
   'Server/LoginUserSucess': (state, action) => action.payload.token,
+  'Server/LogoutSucess': (state, action) => null,
 });
 export const error = createReducer(initialState.error, {
-  'Server/RegistrationSucess': (state, action) => action.payload,
+  'Server/RegistrationError': (state, action) => action.payload,
 
-  'Server/LoginUserSucess': (state, action) => action.payload,
+  'Server/LoginUserError': (state, action) => action.payload,
+  'Server/LogoutError': (state, action) => action.payload,
 });

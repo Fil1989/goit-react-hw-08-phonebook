@@ -1,2 +1,3 @@
 const getIsAunticated = state => state.token;
-export default { getIsAunticated };
+const getUserLogin = state => state.user.name;
+export default { getIsAunticated, getUserLogin };

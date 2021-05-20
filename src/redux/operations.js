@@ -11,12 +11,25 @@ import {
   registrationError,
   loginUserSucess,
   loginUserError,
+  logoutSucess,
+  logoutError,
 } from './actions';
-// axios.defaults
+// import authSelectors from './redux/auth-selectors';
+
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+const token = {
+  set(token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  },
+  unset() {
+    axios.defaults.headers.common.Authorization = '';
+  },
+};
+
 export const takeContactsFromServer = () => async dispatch => {
   dispatch(contactsRequest());
   try {
-    const { data } = await axios.get('http://localhost:4040/contacts');
+    const { data } = await axios.get('/contacts');
     // .then(response =>
     dispatch(getContactsSucess(data));
     // )
@@ -30,12 +43,12 @@ export const postContactToServer = e => async dispatch => {
 
   const name = e.currentTarget[0].value;
   const number = e.currentTarget[1].value;
-  const shortid = require('shortid');
-  const id = shortid.generate();
+  // const shortid = require('shortid');
+  // const id = shortid.generate();
   dispatch(contactsRequest());
   try {
-    const { data } = await axios.post('http://localhost:4040/contacts', {
-      id,
+    const { data } = await axios.post('/contacts', {
+      // id,
       name,
       number,
     });
@@ -50,7 +63,7 @@ export const postContactToServer = e => async dispatch => {
 export const deleteContactFromServer = id => async dispatch => {
   dispatch(contactsRequest());
   try {
-    await axios.delete(`http://localhost:4040/contacts/${id}`);
+    await axios.delete(`/contacts/${id}`);
     // .then(response =>
     dispatch(deleteContactSucess(id));
     // )
@@ -59,6 +72,7 @@ export const deleteContactFromServer = id => async dispatch => {
     // );
   }
 };
+
 export const registerAUser = e => async dispatch => {
   e.preventDefault();
 
@@ -69,15 +83,14 @@ export const registerAUser = e => async dispatch => {
   // const id = shortid.generate();
   // dispatch(contactsRequest());
   try {
-    const { data } = await axios.post(
-      `https://connections-api.herokuapp.com/users/signup`,
-      {
-        // id,
-        name,
-        email,
-        password,
-      },
-    );
+    const { data } = await axios.post(`/users/signup`, {
+      // id,
+      name,
+      email,
+      password,
+    });
+    token.set(data.token);
+    token.unset();
     // .then(response =>
     dispatch(registrationSucess(data));
     // )
@@ -92,15 +105,23 @@ export const loginOperation = e => async dispatch => {
   const password = e.currentTarget[1].value;
 
   try {
-    const { data } = await axios.post(
-      `https://connections-api.herokuapp.com/users/login`,
-      {
-        email,
-        password,
-      },
-    );
+    const { data } = await axios.post(`/users/login`, {
+      email,
+      password,
+    });
+    token.set(data.token);
     dispatch(loginUserSucess(data));
   } catch (error) {
     dispatch(loginUserError(error));
+  }
+};
+export const logout = () => async dispatch => {
+  try {
+    await axios.post(`/users/logout`);
+    token.unset();
+    // authSelectors.getIsAunticated();
+    dispatch(logoutSucess());
+  } catch (error) {
+    dispatch(logoutError(error.message));
   }
 };

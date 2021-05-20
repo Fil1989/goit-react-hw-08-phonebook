@@ -25,7 +25,7 @@ const LogIn = ({ login }) => {
           id="addPassword"
         />
         <button type="submit" className="btn">
-          Log In
+          Login
         </button>
       </form>
     </section>

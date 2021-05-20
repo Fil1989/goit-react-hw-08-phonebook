@@ -35,3 +35,11 @@ export const registrationError = createAction('Server/RegistrationError');
 
 export const loginUserSucess = createAction('Server/LoginUserSucess');
 export const loginUserError = createAction('Server/LoginUserError');
+
+export const logoutSucess = createAction(
+  'Server/LogoutSucess',
+  // , () => {
+  // return {payload:}
+  // }
+);
+export const logoutError = createAction('Server/LogoutError');
