@@ -56,7 +56,7 @@ export const user = createReducer(initialState.user, {
   'Server/LogoutSucess': (state, action) => ({}),
 });
 export const token = createReducer(initialState.token, {
-  'Server/RegistrationSucess': (state, action) => action.payload.token,
+  // 'Server/RegistrationSucess': (state, action) => action.payload.token,
 
   'Server/LoginUserSucess': (state, action) => action.payload.token,
   'Server/LogoutSucess': (state, action) => null,
