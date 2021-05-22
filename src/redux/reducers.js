@@ -13,7 +13,6 @@ export const filter = createReducer(initialState.filter, {
 });
 
 export const contacts = createReducer(initialState.contacts, {
-  'form/handleChange': state => state,
   'Server/PostSucess': (state, action) => {
     return [...state, action.payload];
   },

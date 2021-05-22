@@ -1,14 +1,25 @@
-import {
-  handleChange,
-  handleFilterChange,
-  // handleSubmit,
-} from '../redux/actions';
+import { handleFilterChange } from '../redux/actions';
 import { connect } from 'react-redux';
 import { postContactToServer } from '../redux/operations';
+import { useState } from 'react';
 
 import PropTypes from 'prop-types';
 
-function ContactForm({ filter, onChange, onFilterChange, onSubmit }) {
+function ContactForm({ filter, onFilterChange, onSubmitPostContact }) {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+
+  const onSubmit = e => {
+    onSubmitPostContact(e);
+    setName('');
+    setNumber('');
+  };
+  const onNameChange = e => {
+    setName(e.value);
+  };
+  const onNumberChange = e => {
+    setNumber(e.value);
+  };
   return (
     <>
       <section className="add_contact">
@@ -19,8 +30,9 @@ function ContactForm({ filter, onChange, onFilterChange, onSubmit }) {
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             placeholder="Name of contact"
-            onChange={onChange}
+            onChange={onNameChange}
             id="addContact"
+            value={name}
           />
           <label htmlFor="addNumber">Number</label>
           <input
@@ -28,8 +40,9 @@ function ContactForm({ filter, onChange, onFilterChange, onSubmit }) {
             name="number"
             pattern="(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})"
             placeholder="Enter a number"
-            onChange={onChange}
+            onChange={onNumberChange}
             id="addNumber"
+            value={number}
           />
           <button type="submit" className="btn">
             Add contact
@@ -57,9 +70,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    onChange: () => dispatch(handleChange()),
     onFilterChange: e => dispatch(handleFilterChange(e)),
-    onSubmit: e => dispatch(postContactToServer(e)),
+    onSubmitPostContact: e => dispatch(postContactToServer(e)),
   };
 };
 console.log(window);

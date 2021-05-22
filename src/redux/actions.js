@@ -1,6 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-// import{}
-export const handleChange = createAction('form/handleChange');
 export const handleFilterChange = createAction('form/handleFilterChange', e => {
   return {
     payload: { name: e.currentTarget.name, value: e.currentTarget.value },
@@ -8,17 +6,6 @@ export const handleFilterChange = createAction('form/handleFilterChange', e => {
 });
 export const handleDelete = createAction('form/handleDelete');
 
-export const handleSubmit = createAction('form/handleSubmit', e => {
-  e.preventDefault();
-  const name = e.currentTarget[0].value;
-  const number = e.currentTarget[1].value;
-  const shortid = require('shortid');
-  const id = shortid.generate();
-
-  return {
-    payload: { id, name, number },
-  };
-});
 export const contactsRequest = createAction('Server/Request');
 
 export const getContactsSucess = createAction('Server/GetSucess');
@@ -33,11 +20,12 @@ export const deleteContactError = createAction('Server/DeleteError');
 export const registrationSucess = createAction('Server/RegistrationSucess');
 export const registrationError = createAction('Server/RegistrationError');
 
-export const loginUserSucess = createAction('Server/LoginUserSucess'
+export const loginUserSucess = createAction(
+  'Server/LoginUserSucess',
 
-//   , () => ({
-//   payload:
-// })
+  //   , () => ({
+  //   payload:
+  // })
 );
 export const loginUserError = createAction('Server/LoginUserError');
 
