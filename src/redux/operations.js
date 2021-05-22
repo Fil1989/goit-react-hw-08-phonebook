@@ -45,19 +45,35 @@ export const postContactToServer = e => async dispatch => {
   const number = e.currentTarget[1].value;
   // const shortid = require('shortid');
   // const id = shortid.generate();
-  dispatch(contactsRequest());
-  try {
-    const { data } = await axios.post('/contacts', {
-      // id,
-      name,
-      number,
-    });
-    // .then(response =>
-    dispatch(postContactSucess(data));
-    // )
-  } catch (error) {
-    dispatch(postContactError(error));
-    // );
+  const prevContacts = await axios.get('/contacts');
+  const allContactNames = prevContacts.data.reduce((accum, elem) => {
+    // if (elem.name === name) {
+    //   return accum;
+    // } else {
+    accum.push(elem.name);
+    return accum;
+    // }
+  }, []);
+  if (allContactNames.includes(name)) {
+    alert(`${name} is already in contacts`);
+  } else {
+    dispatch(contactsRequest());
+    try {
+      const { data } = await axios.post('/contacts', {
+        // id,
+        name,
+        number,
+      });
+      // .then(response =>
+
+      dispatch(postContactSucess(data));
+      // e.currentTarget[0].value = '';
+      // e.currentTarget[1].value = '';
+      // )
+    } catch (error) {
+      dispatch(postContactError(error));
+      // );
+    }
   }
 };
 export const deleteContactFromServer = id => async dispatch => {

@@ -1,4 +1,6 @@
 const HomePage = () => {
-  return <h2>Головна сторінка сервісу "Контактна книга"</h2>;
+  return (
+    <h2 className="main_name">Головна сторінка сервісу "Контактна книга"</h2>
+  );
 };
 export default HomePage;

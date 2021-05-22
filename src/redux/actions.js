@@ -33,7 +33,12 @@ export const deleteContactError = createAction('Server/DeleteError');
 export const registrationSucess = createAction('Server/RegistrationSucess');
 export const registrationError = createAction('Server/RegistrationError');
 
-export const loginUserSucess = createAction('Server/LoginUserSucess');
+export const loginUserSucess = createAction('Server/LoginUserSucess'
+
+//   , () => ({
+//   payload:
+// })
+);
 export const loginUserError = createAction('Server/LoginUserError');
 
 export const logoutSucess = createAction(

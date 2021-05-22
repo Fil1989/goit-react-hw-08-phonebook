@@ -15,19 +15,6 @@ export const filter = createReducer(initialState.filter, {
 export const contacts = createReducer(initialState.contacts, {
   'form/handleChange': state => state,
   'Server/PostSucess': (state, action) => {
-    if (
-      state
-        .reduce((accum, el) => {
-          accum.push(el.name);
-          return accum;
-        }, [])
-        .includes(action.payload.name)
-    ) {
-      alert(`${action.payload.name} is already in contacts`);
-      return state;
-    }
-    // fetchApi.contact = action.payload;
-    // fetchApi.postContactToServer();
     return [...state, action.payload];
   },
   'Server/PostError': (_, action) => action.payload,
@@ -63,11 +50,14 @@ export const user = createReducer(initialState.user, {
   'Server/RegistrationSucess': (state, action) => action.payload.user,
   'Server/RegistrationError': (_, action) => action.payload,
 
-  'Server/LoginUserSucess': (state, action) => action.payload.user,
+  'Server/LoginUserSucess': (state, action) => {
+    // <Redirect to="/contacts" />;
+    return action.payload.user;
+  },
   'Server/LogoutSucess': (state, action) => ({}),
 });
 export const token = createReducer(initialState.token, {
-  // 'Server/RegistrationSucess': (state, action) => action.payload.token,
+  'Server/RegistrationSucess': (state, action) => action.payload.token,
 
   'Server/LoginUserSucess': (state, action) => action.payload.token,
   'Server/LogoutSucess': (state, action) => null,

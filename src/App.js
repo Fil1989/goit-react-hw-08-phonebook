@@ -1,4 +1,4 @@
-import { Switch, Route, NavLink } from 'react-router-dom';
+import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import Registration from './components/Registration';
 import LogIn from './components/LogIn';
@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import authSelectors from './redux/auth-selectors';
 import image from './images/avatar.png';
 import { logout } from './redux/operations';
-// import Routes from './router';
 
 function App({ isAutenticated, myLogin, avatar, onLogout }) {
   return (
@@ -17,9 +16,13 @@ function App({ isAutenticated, myLogin, avatar, onLogout }) {
           <NavLink to="/" className="menu-main">
             Головна
           </NavLink>
-          <NavLink to="/contacts" className="menu-main">
-            Контакти
-          </NavLink>
+          {isAutenticated ? (
+            <NavLink to="/contacts" className="menu-main">
+              Контакти
+            </NavLink>
+          ) : (
+            <span>Контакти</span>
+          )}
         </div>
 
         {isAutenticated ? (
@@ -46,15 +49,21 @@ function App({ isAutenticated, myLogin, avatar, onLogout }) {
       <Switch>
         <Route path="/" exact component={HomePage} />
         <Route path="/register" component={Registration} />
-        <Route path="/login" component={LogIn} />
+        {/* <Route path="/register" component={Registration}>
+          {isAutenticated && <Redirect to="/contacts" />}
+        </Route> */}
         <Route path="/contacts" component={Contacts} />
+        <Route path="/login" component={LogIn}>
+          {isAutenticated && <Redirect to="/contacts" />}
+        </Route>
+        )
+        <Redirect to="/" />
       </Switch>
     </div>
   );
 }
 const mapStateToProps = state => ({
   isAutenticated: authSelectors.getIsAunticated(state),
-  // onLogout: () => authSelectors.logout(state),
   myLogin: authSelectors.getUserLogin(state),
   avatar: image,
 });
