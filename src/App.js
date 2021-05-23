@@ -1,4 +1,5 @@
 import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
+// import { useEffect } from 'react';
 import HomePage from './components/HomePage';
 import Registration from './components/Registration';
 import LogIn from './components/LogIn';
@@ -6,9 +7,17 @@ import Contacts from './components/Contacts';
 import { connect } from 'react-redux';
 import authSelectors from './redux/auth-selectors';
 import image from './images/avatar.png';
-import { logout } from './redux/operations';
+import { /*getCurrentUser,*/ logout } from './redux/operations';
 
-function App({ isAutenticated, myLogin, avatar, onLogout }) {
+function App({
+  isAutenticated,
+  myLogin,
+  avatar,
+  onLogout /*, onGetCurrentUser */,
+}) {
+  // useEffect(() => {
+  //   onGetCurrentUser();
+  // }, []);
   return (
     <div className="App">
       <header className="menu">
@@ -72,6 +81,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   onLogout: () => logout(),
+  // onGetCurrentUser: () => getCurrentUser(),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

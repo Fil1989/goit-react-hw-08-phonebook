@@ -13,6 +13,8 @@ import {
   loginUserError,
   logoutSucess,
   logoutError,
+  // getCurrentUserSucess,
+  // getCurrentUserError,
 } from './actions';
 // import authSelectors from './redux/auth-selectors';
 
@@ -153,14 +155,18 @@ export const logout = () => async dispatch => {
     dispatch(logoutError(error.message));
   }
 };
-// export const getCurrentUser = () => async (getState, dispatch) => {
-//   const { token: persistedToken } = getState();
-//   if (!persistedToken) {
-//     return;
-//   }
-//   token.set(persistedToken);
-//   dispatch(getCurrentUserRequest());
-//   try {
-//     const response = await axios.get('/users/current');
-//   } catch (error) {}
+// export const getCurrentUser = () => (getState, dispatch) => {
+// const currentToken = getState().token;
+
+// if (!currentToken) {
+//   return;
+// }
+// token.set(currentToken);
+// // dispatch(getCurrentUserRequest());
+// try {
+//   const response = await axios.get('/users/current');
+//   dispatch(getCurrentUserSucess(response.data));
+// } catch (error) {
+//   dispatch(getCurrentUserError(error.message));
+// }
 // };

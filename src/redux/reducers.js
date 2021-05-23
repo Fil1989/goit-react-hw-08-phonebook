@@ -50,10 +50,13 @@ export const user = createReducer(initialState.user, {
   'Server/RegistrationError': (_, action) => action.payload,
 
   'Server/LoginUserSucess': (state, action) => {
-    // <Redirect to="/contacts" />;
     return action.payload.user;
   },
   'Server/LogoutSucess': (state, action) => ({}),
+  'Server/GetUserSucess': (state, action) => {
+    console.log(action.payload);
+    return state;
+  },
 });
 export const token = createReducer(initialState.token, {
   // 'Server/RegistrationSucess': (state, action) => action.payload.token,
@@ -66,4 +69,5 @@ export const error = createReducer(initialState.error, {
 
   'Server/LoginUserError': (state, action) => action.payload,
   'Server/LogoutError': (state, action) => action.payload,
+  'Server/GetUserError': (state, action) => action.payload,
 });

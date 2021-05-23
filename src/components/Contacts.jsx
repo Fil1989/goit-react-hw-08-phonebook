@@ -8,10 +8,10 @@ import { takeContactsFromServer } from '../redux/operations';
 // const ContactList = React.lazy(() => import('./ContactList'));
 
 const Contacts = ({ filter, onTakeContactsFromServer }) => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    onTakeContactsFromServer();
-  }, []);
+    useEffect(() => {
+      onTakeContactsFromServer();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
   return (
     <main className="main">
       <ContactForm />

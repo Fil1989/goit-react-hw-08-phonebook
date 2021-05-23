@@ -74,7 +74,6 @@ const mapDispatchToProps = dispatch => {
     onSubmitPostContact: e => dispatch(postContactToServer(e)),
   };
 };
-console.log(window);
 
 ContactForm.propTypes = {
   filter: PropTypes.string,

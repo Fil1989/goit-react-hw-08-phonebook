@@ -20,19 +20,11 @@ export const deleteContactError = createAction('Server/DeleteError');
 export const registrationSucess = createAction('Server/RegistrationSucess');
 export const registrationError = createAction('Server/RegistrationError');
 
-export const loginUserSucess = createAction(
-  'Server/LoginUserSucess',
-
-  //   , () => ({
-  //   payload:
-  // })
-);
+export const loginUserSucess = createAction('Server/LoginUserSucess');
 export const loginUserError = createAction('Server/LoginUserError');
 
-export const logoutSucess = createAction(
-  'Server/LogoutSucess',
-  // , () => {
-  // return {payload:}
-  // }
-);
+export const logoutSucess = createAction('Server/LogoutSucess');
 export const logoutError = createAction('Server/LogoutError');
+
+export const getCurrentUserSucess = createAction('Server/GetUserSucess');
+export const getCurrentUserError = createAction('Server/GetUserError');
