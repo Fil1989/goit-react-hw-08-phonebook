@@ -19,9 +19,9 @@ const rootReducer = combineReducers({
 });
 
 const persistConfig = {
-  // key: 'token', //localStorage.set('token',...)
+  key: 'auth', //localStorage.set('token',...)
   storage: storage,
-  // whitelist: ['token'], // token will be persisted
+  whitelist: ['token'], // token will be persisted
 };
 
 const store = configureStore({

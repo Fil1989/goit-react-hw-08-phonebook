@@ -48,11 +48,13 @@ function App({ isAutenticated, myLogin, avatar, onLogout }) {
 
       <Switch>
         <Route path="/" exact component={HomePage} />
-        <Route path="/register" component={Registration} />
-        {/* <Route path="/register" component={Registration}>
+        {/* <Route path="/register" component={Registration} /> */}
+        <Route path="/register" component={Registration}>
           {isAutenticated && <Redirect to="/contacts" />}
-        </Route> */}
-        <Route path="/contacts" component={Contacts} />
+        </Route>
+        <Route path="/contacts" component={Contacts}>
+          {!isAutenticated && <Redirect to="/" />}
+        </Route>
         <Route path="/login" component={LogIn}>
           {isAutenticated && <Redirect to="/contacts" />}
         </Route>

@@ -45,14 +45,15 @@ export const postContactToServer = e => async dispatch => {
   const number = e.currentTarget[1].value;
   // const shortid = require('shortid');
   // const id = shortid.generate();
-  const prevContacts = await axios.get('/contacts');
-  const allContactNames = prevContacts.data.reduce((accum, elem) => {
-    // if (elem.name === name) {
-    //   return accum;
-    // } else {
+  let prevContacts;
+  try {
+    prevContacts = await axios.get('/contacts');
+  } catch (error) {
+    console.log(error.message);
+  }
+  let allContactNames = prevContacts.data.reduce((accum, elem) => {
     accum.push(elem.name);
     return accum;
-    // }
   }, []);
   if (allContactNames.includes(name)) {
     alert(`${name} is already in contacts`);
@@ -114,6 +115,17 @@ export const registerAUser = e => async dispatch => {
     dispatch(registrationError(error));
     // );
   }
+
+  try {
+    const { data } = await axios.post(`/users/login`, {
+      email,
+      password,
+    });
+    token.set(data.token);
+    dispatch(loginUserSucess(data));
+  } catch (error) {
+    dispatch(loginUserError(error));
+  }
 };
 export const loginOperation = e => async dispatch => {
   e.preventDefault();
@@ -141,3 +153,14 @@ export const logout = () => async dispatch => {
     dispatch(logoutError(error.message));
   }
 };
+// export const getCurrentUser = () => async (getState, dispatch) => {
+//   const { token: persistedToken } = getState();
+//   if (!persistedToken) {
+//     return;
+//   }
+//   token.set(persistedToken);
+//   dispatch(getCurrentUserRequest());
+//   try {
+//     const response = await axios.get('/users/current');
+//   } catch (error) {}
+// };

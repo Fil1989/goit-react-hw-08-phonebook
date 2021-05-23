@@ -9,7 +9,9 @@ import { takeContactsFromServer } from '../redux/operations';
 
 const Contacts = ({ filter, onTakeContactsFromServer }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => onTakeContactsFromServer(), []);
+  useEffect(() => {
+    onTakeContactsFromServer();
+  }, []);
   return (
     <main className="main">
       <ContactForm />
