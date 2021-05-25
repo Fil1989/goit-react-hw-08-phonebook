@@ -1,5 +1,5 @@
 import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 import HomePage from './components/HomePage';
 import Registration from './components/Registration';
 import LogIn from './components/LogIn';
@@ -7,17 +7,14 @@ import Contacts from './components/Contacts';
 import { connect } from 'react-redux';
 import authSelectors from './redux/auth-selectors';
 import image from './images/avatar.png';
-import { /*getCurrentUser,*/ logout } from './redux/operations';
+import { getCurrentUser, logout } from './redux/operations';
+import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
 
-function App({
-  isAutenticated,
-  myLogin,
-  avatar,
-  onLogout /*, onGetCurrentUser */,
-}) {
-  // useEffect(() => {
-  //   onGetCurrentUser();
-  // }, []);
+function App({ isAutenticated, myLogin, avatar, onLogout, onGetCurrentUser }) {
+  useEffect(() => {
+    onGetCurrentUser();
+  }, []);
   return (
     <div className="App">
       <header className="menu">
@@ -40,7 +37,7 @@ function App({
               <img src={avatar} alt="Avatar" width="20" /> Welcome,{myLogin}
             </span>
             <button onClick={onLogout}>
-              <NavLink to="/register">Logout</NavLink>
+              <NavLink to="/">Logout</NavLink>
             </button>
           </div>
         ) : (
@@ -61,12 +58,13 @@ function App({
         <Route path="/register" component={Registration}>
           {isAutenticated && <Redirect to="/contacts" />}
         </Route>
-        <Route path="/contacts" component={Contacts}>
+        <PrivateRoute path="/contacts" component={Contacts} />
+        {/* <Route path="/contacts" component={Contacts}>
           {!isAutenticated && <Redirect to="/" />}
-        </Route>
-        <Route path="/login" component={LogIn}>
+        </Route> */}
+        <PublicRoute path="/login" component={LogIn}>
           {isAutenticated && <Redirect to="/contacts" />}
-        </Route>
+        </PublicRoute>
         )
         <Redirect to="/" />
       </Switch>
@@ -81,7 +79,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   onLogout: () => logout(),
-  // onGetCurrentUser: () => getCurrentUser(),
+  onGetCurrentUser: () => getCurrentUser(),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
