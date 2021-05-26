@@ -1,19 +1,24 @@
-import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
+import { Switch, NavLink, Redirect } from 'react-router-dom';
 import { useEffect } from 'react';
-import HomePage from './components/HomePage';
-import Registration from './components/Registration';
-import LogIn from './components/LogIn';
-import Contacts from './components/Contacts';
+
 import { connect } from 'react-redux';
+import { Suspense, lazy } from 'react';
 import authSelectors from './redux/auth-selectors';
 import image from './images/avatar.png';
 import { getCurrentUser, logout } from './redux/operations';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 
+const HomePage = lazy(() => import('./components/HomePage'));
+const Registration = lazy(() => import('./components/Registration'));
+const Contacts = lazy(() => import('./components/Contacts'));
+const LogIn = lazy(() => import('./components/LogIn'));
+
 function App({ isAutenticated, myLogin, avatar, onLogout, onGetCurrentUser }) {
   useEffect(() => {
     onGetCurrentUser();
+    // console.log('Hello World!');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="App">
@@ -52,22 +57,20 @@ function App({ isAutenticated, myLogin, avatar, onLogout, onGetCurrentUser }) {
         )}
       </header>
 
-      <Switch>
-        <Route path="/" exact component={HomePage} />
-        {/* <Route path="/register" component={Registration} /> */}
-        <Route path="/register" component={Registration}>
-          {isAutenticated && <Redirect to="/contacts" />}
-        </Route>
-        <PrivateRoute path="/contacts" component={Contacts} />
-        {/* <Route path="/contacts" component={Contacts}>
-          {!isAutenticated && <Redirect to="/" />}
-        </Route> */}
-        <PublicRoute path="/login" component={LogIn}>
-          {isAutenticated && <Redirect to="/contacts" />}
-        </PublicRoute>
-        )
-        <Redirect to="/" />
-      </Switch>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Switch>
+          <PublicRoute path="/" exact component={HomePage} />
+          <PublicRoute path="/register" component={Registration}>
+            {isAutenticated && <Redirect to="/contacts" />}
+          </PublicRoute>
+          <PrivateRoute path="/contacts" component={Contacts} />
+          <PublicRoute path="/login" component={LogIn}>
+            {isAutenticated && <Redirect to="/contacts" />}
+          </PublicRoute>
+          )
+          <Redirect to="/" />
+        </Switch>
+      </Suspense>
     </div>
   );
 }

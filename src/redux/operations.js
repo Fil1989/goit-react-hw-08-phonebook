@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from './store';
 import {
   getContactsSucess,
   getContactsError,
@@ -16,7 +17,6 @@ import {
   getCurrentUserSucess,
   getCurrentUserError,
 } from './actions';
-// import authSelectors from './redux/auth-selectors';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 const token = {
@@ -28,7 +28,7 @@ const token = {
   },
 };
 
-export const takeContactsFromServer = () => async dispatch => {
+export const takeContactsFromServer = () => async (dispatch, getState) => {
   dispatch(contactsRequest());
   try {
     const { data } = await axios.get('/contacts');
@@ -45,8 +45,7 @@ export const postContactToServer = e => async dispatch => {
 
   const name = e.currentTarget[0].value;
   const number = e.currentTarget[1].value;
-  // const shortid = require('shortid');
-  // const id = shortid.generate();
+
   let prevContacts;
   try {
     prevContacts = await axios.get('/contacts');
@@ -63,19 +62,13 @@ export const postContactToServer = e => async dispatch => {
     dispatch(contactsRequest());
     try {
       const { data } = await axios.post('/contacts', {
-        // id,
         name,
         number,
       });
-      // .then(response =>
 
       dispatch(postContactSucess(data));
-      // e.currentTarget[0].value = '';
-      // e.currentTarget[1].value = '';
-      // )
     } catch (error) {
       dispatch(postContactError(error));
-      // );
     }
   }
 };
@@ -83,12 +76,9 @@ export const deleteContactFromServer = id => async dispatch => {
   dispatch(contactsRequest());
   try {
     await axios.delete(`/contacts/${id}`);
-    // .then(response =>
     dispatch(deleteContactSucess(id));
-    // )
   } catch (error) {
     dispatch(deleteContactError(error));
-    // );
   }
 };
 
@@ -98,24 +88,17 @@ export const registerAUser = e => async dispatch => {
   const name = e.currentTarget[0].value;
   const email = e.currentTarget[1].value;
   const password = e.currentTarget[2].value;
-  // const shortid = require('shortid');
-  // const id = shortid.generate();
-  // dispatch(contactsRequest());
   try {
     const { data } = await axios.post(`/users/signup`, {
-      // id,
       name,
       email,
       password,
     });
     token.set(data.token);
     token.unset();
-    // .then(response =>
     dispatch(registrationSucess(data));
-    // )
   } catch (error) {
     dispatch(registrationError(error));
-    // );
   }
 
   try {
@@ -149,16 +132,15 @@ export const logout = () => async dispatch => {
   try {
     await axios.post(`/users/logout`);
     token.unset();
-    // authSelectors.getIsAunticated();
     dispatch(logoutSucess());
   } catch (error) {
     dispatch(logoutError(error.message));
   }
 };
-export const getCurrentUser = () => async (getState, dispatch) => {
-  const { token: currentToken } = getState();
+export const getCurrentUser = () => async dispatch => {
+  const { isAutenticated, token: currentToken } = store.getState();
 
-  if (!currentToken) {
+  if (!isAutenticated) {
     return;
   }
   token.set(currentToken);

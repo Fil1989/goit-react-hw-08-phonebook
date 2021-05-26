@@ -40,7 +40,6 @@ const Registration = ({ submitOfRegistration }) => {
     </section>
   );
 };
-// const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
   submitOfRegistration: e => dispatch(registerAUser(e)),

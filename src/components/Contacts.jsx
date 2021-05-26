@@ -1,26 +1,22 @@
 import { useEffect } from 'react';
-// import React, { Suspense } from 'react';
 import FiltredList from './FiltredList';
 import ContactList from './ContactList';
 import ContactForm from './ContactForm';
 import { connect } from 'react-redux';
 import { takeContactsFromServer } from '../redux/operations';
-// const ContactList = React.lazy(() => import('./ContactList'));
 
 const Contacts = ({ filter, onTakeContactsFromServer }) => {
-    useEffect(() => {
-      onTakeContactsFromServer();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+  useEffect(() => {
+    onTakeContactsFromServer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <main className="main">
       <ContactForm />
 
       <ul>
         {filter.length === 0 && (
-          //   <Suspense fallback="Wait">
           <ContactList />
-          //   </Suspense>
         )}
         {filter.length !== 0 && <FiltredList />}
       </ul>
@@ -39,4 +35,3 @@ const mapDispatchToProps = dispatch => {
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Contacts);
-// export default Contacts;

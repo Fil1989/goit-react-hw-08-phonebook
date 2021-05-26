@@ -31,9 +31,7 @@ const LogIn = ({ login }) => {
     </section>
   );
 };
-// const mapStateToProps = (state) => ({
 
-// })
 
 const mapDispatchToProps = {
   login: e => loginOperation(e),
