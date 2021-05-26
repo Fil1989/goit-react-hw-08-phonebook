@@ -39,7 +39,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'auth', //localStorage.set('token',...)
   storage: storage,
-  whitelist: ['token'], // token will be persisted
+  whitelist: ['token', 'isAutenticated'], // token, isAutenticated will be persisted
 };
 
 const store = configureStore({
