@@ -1,5 +1,5 @@
 import axios from 'axios';
-import store from './store';
+// import store from './store';
 import {
   getContactsSucess,
   getContactsError,
@@ -137,8 +137,8 @@ export const logout = () => async dispatch => {
     dispatch(logoutError(error.message));
   }
 };
-export const getCurrentUser = () => async dispatch => {
-  const { isAutenticated, token: currentToken } = store.getState();
+export const getCurrentUser = () => async (dispatch, getState) => {
+  const { isAutenticated, token: currentToken } = await getState();
 
   if (!isAutenticated) {
     return;
